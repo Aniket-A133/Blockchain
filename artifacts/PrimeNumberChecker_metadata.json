@@ -1,0 +1,65 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "number",
+						"type": "uint256"
+					}
+				],
+				"name": "isPrime",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/e2/prime.sol": "PrimeNumberChecker"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/e2/prime.sol": {
+			"keccak256": "0x77b8ddf6d355ba016cc4b56bb5e06b59402d964d76bd1141ab11448113054ac8",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://a7a2b9151800ff6bde7cc343cfce82c9877b9d99c2b5e2344b25e3a41c3c6ba5",
+				"dweb:/ipfs/QmagdZwjfCYn1q7oChUqwRdKUq7xqYSC8vhdJHLmtYkk1h"
+			]
+		}
+	},
+	"version": 1
+}
