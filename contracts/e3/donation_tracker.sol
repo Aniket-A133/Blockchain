@@ -4,45 +4,41 @@ pragma solidity ^0.8.19;
 contract DonationTracker {
     struct Donation {
         address donor;
-        uint amount;
+        uint256 amount;
         string name;
         string message;
-        uint timestamp;
+        uint256 timestamp;
     }
 
-    mapping(address => Donation[]) private donationsReceived;
-    mapping(address => uint) private balances;
+    Donation[] public donations;
+    uint256 public totalBalance;
 
-    event DonationMade(address indexed donor, address indexed recipient, uint amount, string name, string message);
-    event Withdrawal(address indexed recipient, uint amount);
+    // Donate ETH to the contract
+    function donate(string memory donorName, string memory donorMessage) external payable {
+        require(msg.value > 0, "Donation must be > 0");
 
-    function donate(address recipient, string memory donorName, string memory donorMessage) external payable {
-        require(msg.value > 0, "donation must be > 0");
-        donationsReceived[recipient].push(Donation({
+        donations.push(Donation({
             donor: msg.sender,
             amount: msg.value,
             name: donorName,
             message: donorMessage,
             timestamp: block.timestamp
         }));
-        balances[recipient] += msg.value;
-        emit DonationMade(msg.sender, recipient, msg.value, donorName, donorMessage);
+
+        totalBalance += msg.value;
     }
 
+    // Withdraw accumulated balance
     function withdraw() external {
-        uint amount = balances[msg.sender];
-        require(amount > 0, "no funds to withdraw");
-        balances[msg.sender] = 0;
-        (bool success, ) = msg.sender.call{value: amount}("");
-        require(success, "withdraw failed");
-        emit Withdrawal(msg.sender, amount);
+        uint256 amount = totalBalance;
+        require(amount > 0, "No funds to withdraw");
+        totalBalance = 0;
+        (bool sent, ) = msg.sender.call{value: amount}("");
+        require(sent, "Withdraw failed");
     }
 
-    function getDonationHistory(address recipient) external view returns (Donation[] memory) {
-        return donationsReceived[recipient];
-    }
-
-    function getBalance(address recipient) external view returns (uint) {
-        return balances[recipient];
+    // Get all donation history
+    function getDonationHistory() external view returns (Donation[] memory) {
+        return donations;
     }
 }
